@@ -1,5 +1,5 @@
 <?php
-	include_once("ressources/Sax4PHP.php");
+	include_once("Sax4PHP.php");
 	class sax extends DefaultHandler{
 		public $xml_liste_pays;
 		public $xml;
@@ -40,6 +40,7 @@
 				case 'encompassed':
 					if((string)$att["continent"] == "asia" && (int)$att['percentage'] < 100){
 						$this->flag_asia = true;
+						$this->proportion = (int)$att['percentage'];
 					}
 					break;
 				case "name":
@@ -55,8 +56,12 @@
 						$xml_pays = $this->xml->createElement("pays");
 						$xml_nom = new DOMAttr("nom", $this->pays);
 						$xml_capital = new DOMAttr("capitale", $this->capital);
-	   					$xml_pays->appendChild($xml_capital);
+						$xml_proportion_asia = new DOMAttr("proportion-asie", $this->proportion);
+						$xml_proportion_autre = new DOMAttr("proportion-autre", 100 - $this->proportion);
 	   					$xml_pays->appendChild($xml_nom);
+	   					$xml_pays->appendChild($xml_capital);
+	   					$xml_pays->appendChild($xml_proportion_asia);
+	   					$xml_pays->appendChild($xml_proportion_autre);
 	   					$this->xml_liste_pays->appendChild($xml_pays);
 					}
 					$this->flag_asia = false;
@@ -89,7 +94,7 @@
 			
 		} 
 		function endDocument() {
-			$this->xml->save("ressources/pouet.xml");
+			$this->xml->save("pouet.xml");
 		}
 	}
 ?>
