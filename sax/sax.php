@@ -72,8 +72,6 @@
 							$this->pays = $this->val;
 						}
 						if ($this->flag_capital == true) {
-							var_dump($this->val);
-							echo $this->val;
 							$this->capital = $this->val;
 							$this->flag_capital = false;
 						}
@@ -94,7 +92,7 @@
 			
 		} 
 		function endDocument() {
-			$this->xml->save("pouet.xml");
+			$this->xml->save("mondial.xml");
 		}
 	}
 ?>
