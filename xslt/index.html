@@ -1,0 +1,39 @@
+<h2>XSLT</h2>
+<div>Concernant cettepartie, il est nécessaire de l'executer à l'aide d'une application adaptée</div>
+<h4>Code source</h4>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="xs"
+    version="2.0" &gt;
+    &lt;xsl:output method="xml" encoding="UTF-8" doctype-system="liste-pays.dtd" indent="yes"/&gt;
+    &lt;xsl:variable name="continent" select="'asia'"/&gt;
+    &lt;xsl:template match="/"&gt;
+        &lt;liste-pays&gt;
+            &lt;xsl:apply-templates select="./mondial/country"/&gt;
+        &lt;/liste-pays&gt;
+        
+    &lt;/xsl:template&gt;
+    &lt;xsl:template match="country"&gt;
+        &lt;xsl:if test="encompassed[@continent = $continent and @percentage &lt; 100]"&gt;
+            &lt;xsl:variable name="capital" select="@capital" /&gt;
+            &lt;xsl:variable name="proportion" select="encompassed[@continent = $continent]/@percentage" /&gt;
+            &lt;xsl:element name="pays"&gt;
+                &lt;xsl:attribute name="nom"&gt;
+                    &lt;xsl:value-of select="name"/&gt;
+                &lt;/xsl:attribute&gt;
+                &lt;xsl:attribute name="capitale"&gt;
+                    &lt;xsl:value-of select="province/city[@id = $capital]/name"/&gt;
+                &lt;/xsl:attribute&gt;
+                &lt;xsl:attribute name="proportion-asie"&gt;
+                    &lt;xsl:value-of select="$proportion"/&gt;
+                &lt;/xsl:attribute&gt;
+                &lt;xsl:attribute name="proportion-autres"&gt;
+                    &lt;xsl:value-of select="100-$proportion"/&gt;
+                &lt;/xsl:attribute&gt;
+            &lt;/xsl:element&gt;
+        &lt;/xsl:if&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</pre>

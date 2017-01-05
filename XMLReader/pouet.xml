@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<liste-pays>
+ <pays nom="Russia" proportion="75" capital="Moskva"/>
+ <pays nom="Turkey" proportion="97" capital="Ankara"/>
+ <pays nom="Kazakhstan" proportion="94" capital="Astana"/>
+ <pays nom="Indonesia" proportion="78" capital="Jakarta"/>
+</liste-pays>
